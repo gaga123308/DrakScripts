@@ -2,232 +2,329 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>🎃 DrakScripts — Halloween Edition</title>
-<meta name="description" content="DrakScripts — hospedagem de scripts Lua da DrakStudios.">
-<meta name="theme-color" content="#10051d">
-<meta property="og:title" content="DrakScripts 🎃">
-<meta property="og:description" content="Hospedagem de scripts Lua da DrakStudios.">
-<meta property="og:image" content="https://drakscripts.pages.dev/1792697556179.jpg">
-<link rel="icon" href="/1792697556179.jpg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff7900">
+  <title>DrakScripts | Halloween</title>
+  <style>
+    :root {
+      --orange: #ff7900;
+      --dark: #100b14;
+      --panel: #1b1421;
+      --text: #f8f4fc;
+      --muted: #aaa0b5;
+    }
 
-<style>
-:root {
-  --bg:#080510; --panel:#140c21; --purple:#a855f7;
-  --pink:#e879f9; --orange:#ff7417; --text:#f8f1ff;
-  --muted:#b9a9cf;
-}
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  margin:0; min-height:100vh; color:var(--text);
-  background:radial-gradient(ellipse at 50% 0%,#38115b,transparent 48%),var(--bg);
-  font-family:system-ui,Arial,sans-serif;
-}
-a { color:inherit; text-decoration:none; }
-header {
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding:14px 5%; background:#0b0615ee;
-  border-bottom:1px solid #7432a5;
-}
-.brand { display:flex; align-items:center; gap:10px; }
-.brand img {
-  width:48px; height:48px; object-fit:cover; border-radius:50%;
-  border:2px solid var(--purple);
-}
-.brand strong { font-size:18px; }
-.brand small { display:block; color:var(--muted); }
-nav { display:flex; gap:13px; font-size:13px; }
-nav a:hover { color:var(--pink); }
-.hero { text-align:center; padding:48px 18px 30px; }
-h1 {
-  margin:12px 0; font-size:clamp(42px,9vw,72px);
-  color:#d8a0ff; text-shadow:0 0 25px #a855f788;
-}
-.hero p,.muted { color:var(--muted); line-height:1.65; }
-.hero p { max-width:560px; margin:14px auto 22px; }
-.wrap { width:min(950px,calc(100% - 26px)); margin:auto; }
-.card {
-  padding:21px; margin:16px 0; border:1px solid #67359a;
-  border-radius:18px; background:linear-gradient(145deg,#171027,#0d0818);
-}
-h2 { margin-top:0; }
-button,.button {
-  display:inline-block; border:1px solid #c084fc; border-radius:11px;
-  padding:13px 17px; color:white; background:linear-gradient(110deg,#7e22ce,#a21caf);
-  font-weight:750; cursor:pointer; text-align:center;
-}
-button { width:100%; }
-button:disabled { opacity:.6; cursor:wait; }
-input[type=file] {
-  display:block; width:100%; margin:18px 0; padding:12px;
-  border:1px dashed #9850cf; border-radius:12px;
-  color:var(--muted); background:#0b0715;
-}
-#status { color:#d8b4fe; font-size:13px; line-height:1.6; overflow-wrap:anywhere; }
-#results { display:none; margin-top:18px; }
-.result-link {
-  display:block; padding:12px; margin-top:10px;
-  border:1px solid #4c3566; border-radius:10px;
-  color:#e9d5ff; overflow-wrap:anywhere;
-}
-.discord { border-color:#ff7417; }
-.features { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-.feature p { color:var(--muted); font-size:13px; line-height:1.6; }
-footer {
-  margin-top:30px; padding:28px 15px; text-align:center;
-  border-top:1px solid #42215c; color:var(--muted); font-size:13px;
-}
-@media(max-width:600px) {
-  header { padding:12px; }
-  .brand strong { font-size:15px; }
-  .brand small { font-size:10px; }
-  nav { gap:9px; font-size:12px; }
-  .features { grid-template-columns:1fr; }
-  .card { padding:17px; }
-}
-</style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at top, #40200f 0, transparent 48%),
+        var(--dark);
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      padding: 24px 18px;
+      text-align: center;
+      border-bottom: 1px solid #3d2a22;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--orange);
+      letter-spacing: 1px;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    main {
+      width: min(680px, 92%);
+      margin: 32px auto;
+    }
+
+    .panel {
+      padding: 24px;
+      background: rgba(27, 20, 33, .96);
+      border: 1px solid #493021;
+      border-radius: 18px;
+      box-shadow: 0 12px 40px #0005;
+    }
+
+    h2 { margin-top: 0; }
+
+    .description {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .drop-area {
+      display: block;
+      margin-top: 22px;
+      padding: 28px 16px;
+      text-align: center;
+      border: 2px dashed #805027;
+      border-radius: 14px;
+      background: #110d17;
+      cursor: pointer;
+    }
+
+    .drop-area:focus-within {
+      outline: 2px solid var(--orange);
+    }
+
+    .upload-icon {
+      font-size: 38px;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    input[type="file"] {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      color: var(--muted);
+    }
+
+    button, .link-button {
+      display: inline-block;
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 10px;
+      color: #160d06;
+      background: var(--orange);
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: wait;
+    }
+
+    .upload-button {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .status {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #100d14;
+      overflow-wrap: anywhere;
+      line-height: 1.5;
+    }
+
+    .hidden { display: none; }
+
+    .result {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid #493021;
+    }
+
+    .result label {
+      display: block;
+      margin: 14px 0 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .url-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .url-row input {
+      min-width: 0;
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #493021;
+      background: #100d14;
+      color: white;
+    }
+
+    .url-row button {
+      padding: 10px;
+    }
+
+    .discord {
+      display: block;
+      margin-top: 22px;
+      color: var(--orange);
+      text-align: center;
+    }
+
+    footer {
+      padding: 24px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 430px) {
+      .panel { padding: 18px; }
+      .url-row { flex-direction: column; }
+      .url-row button { width: 100%; }
+    }
+  </style>
 </head>
-
 <body>
-<header>
-  <a class="brand" href="#inicio">
-    <img src="/1792697556179.jpg" alt="Logo DrakScripts">
-    <span><strong>DrakScripts 🎃</strong><small>Hospedagem de scripts Lua</small></span>
-  </a>
-  <nav>
-    <a href="#inicio">🏠 Início</a>
-    <a href="#enviar">📤 Enviar</a>
-    <a href="#sobre">👻 Sobre</a>
-  </nav>
-</header>
+  <header>
+    <div class="logo">🎃 DRAKSCRIPTS</div>
+    <p>Teus arquivos, teus links.</p>
+  </header>
 
-<section class="hero" id="inicio">
-  <div style="font-size:30px">🎃 🦇 🌙 🕸️</div>
-  <div style="color:#ff7417;font-weight:bold;letter-spacing:2px">HALLOWEEN EDITION 2026</div>
-  <h1>DrakScripts</h1>
-  <h2>🕷️ Hospedagem de scripts Lua</h2>
-  <p>Bem-vindo ao lado sombrio da programação! Envie arquivos Lua e receba links para visualizar ou baixar o código.</p>
-  <a class="button" href="#enviar">🎃 Hospedar script</a>
-</section>
+  <main>
+    <section class="panel">
+      <h2>👻 Hospedar arquivo</h2>
+      <p class="description">
+        Envia arquivos Lua ou TXT e recebe links para visualizar
+        ou baixar o arquivo.
+      </p>
 
-<main class="wrap">
-  <section class="card" id="enviar">
-    <h2>🎃 Enviar novo script</h2>
-    <p class="muted">Seleciona um arquivo .lua. O limite atual é de 1 MB por arquivo.</p>
-    <input id="luaFile" type="file" accept=".lua">
-    <button id="uploadButton" type="button">🧙 Hospedar script</button>
-    <p id="status" role="status">👻 Nenhum arquivo selecionado.</p>
+      <form id="uploadForm">
+        <label class="drop-area" for="fileInput">
+          <span class="upload-icon">📁</span>
+          <strong>Seleciona teu arquivo</strong>
+          <p class="description">Formatos aceitos: .lua e .txt</p>
+          <input
+            id="fileInput"
+            name="file"
+            type="file"
+            accept=".lua,.txt,text/plain"
+            required
+          >
+        </label>
 
-    <div id="results">
-      <h3>🔮 Teu script está hospedado!</h3>
-      <a class="result-link" id="rawLink" target="_blank" rel="noopener">📜 Abrir RAW</a>
-      <a class="result-link" id="downloadLink">⬇️ Baixar script</a>
-      <button id="copyLink" type="button" style="margin-top:12px">🔗 Copiar link RAW</button>
-    </div>
-  </section>
+        <button class="upload-button" id="uploadButton" type="submit">
+          🚀 Enviar arquivo
+        </button>
+      </form>
 
-  <section class="features" id="sobre">
-    <article class="card">
-      <div style="font-size:28px">⚡</div>
-      <h3>Simples de usar</h3>
-      <p>Seleciona o arquivo e envia para criar um link.</p>
-    </article>
-    <article class="card">
-      <div style="font-size:28px">🔗</div>
-      <h3>Links próprios</h3>
-      <p>Cada arquivo recebe um identificador único.</p>
-    </article>
-    <article class="card">
-      <div style="font-size:28px">🌙</div>
-      <h3>DrakStudios</h3>
-      <p>Um projeto para a comunidade.</p>
-    </article>
-  </section>
+      <div id="status" class="status hidden" role="status"></div>
 
-  <section class="card" style="text-align:center">
-    <div style="font-size:38px">🧡🎃🦇</div>
-    <h2>DrakStudios</h2>
-    <p class="muted">Projetos e ferramentas para a comunidade.</p>
-    <a class="button discord" href="https://discord.gg/SvNyxB4xj" target="_blank" rel="noopener">💬 Entrar no nosso Discord</a>
-  </section>
-</main>
+      <section id="result" class="result hidden">
+        <h3>✅ Arquivo hospedado!</h3>
 
-<footer>
-  <div style="font-size:25px">🎃 👻 🦇</div>
-  <p><strong>DrakScripts</strong> · Hospedagem de scripts Lua</p>
-  <p>© 2026 DrakStudios · Halloween Edition</p>
-  <p>Feito com 🧡 e magia roxa.</p>
-  <p><a href="https://discord.gg/SvNyxB4xj">💬 Discord oficial</a></p>
-</footer>
+        <label for="rawUrl">Link RAW</label>
+        <div class="url-row">
+          <input id="rawUrl" readonly>
+          <button type="button" data-copy="rawUrl">Copiar</button>
+        </div>
 
-<script>
-const fileInput = document.getElementById("luaFile");
-const button = document.getElementById("uploadButton");
-const status = document.getElementById("status");
-const results = document.getElementById("results");
-let currentRawUrl = "";
+        <label for="downloadUrl">Link Download</label>
+        <div class="url-row">
+          <input id="downloadUrl" readonly>
+          <button type="button" data-copy="downloadUrl">Copiar</button>
+        </div>
+      </section>
 
-fileInput.addEventListener("change", () => {
-  const file = fileInput.files[0];
-  results.style.display = "none";
-  status.textContent = file ? "📜 Selecionado: " + file.name : "👻 Nenhum arquivo selecionado.";
-});
+      <a class="discord" href="https://discord.gg/SvNyxB4xj"
+         target="_blank" rel="noopener noreferrer">
+        💬 DrakScripts | Comunidade Discord
+      </a>
+    </section>
+  </main>
 
-button.addEventListener("click", async () => {
-  const file = fileInput.files[0];
-  results.style.display = "none";
+  <footer>
+    © DrakStudios · DrakScripts 🎃
+  </footer>
 
-  if (!file) {
-    status.textContent = "🎃 Escolhe um arquivo .lua primeiro!";
-    return;
-  }
-  if (!file.name.toLowerCase().endsWith(".lua")) {
-    status.textContent = "⚠️ O arquivo precisa terminar em .lua.";
-    return;
-  }
-  if (file.size > 1024 * 1024) {
-    status.textContent = "⚠️ O limite é 1 MB por arquivo.";
-    return;
-  }
+  <script>
+    const form = document.getElementById("uploadForm");
+    const fileInput = document.getElementById("fileInput");
+    const button = document.getElementById("uploadButton");
+    const statusBox = document.getElementById("status");
+    const result = document.getElementById("result");
 
-  button.disabled = true;
-  status.textContent = "🕸️ Enviando para a hospedagem...";
+    function showStatus(message) {
+      statusBox.textContent = message;
+      statusBox.classList.remove("hidden");
+    }
 
-  try {
-    const form = new FormData();
-    form.append("file", file);
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: form
+      const file = fileInput.files[0];
+
+      if (!file) {
+        showStatus("Seleciona um arquivo primeiro.");
+        return;
+      }
+
+      if (!/\.(lua|txt)$/i.test(file.name)) {
+        showStatus("Só são aceitos arquivos .lua ou .txt.");
+        return;
+      }
+
+      if (file.size > 1024 * 1024) {
+        showStatus("O arquivo deve ter no máximo 1 MB.");
+        return;
+      }
+
+      const data = new FormData();
+      data.append("file", file);
+
+      button.disabled = true;
+      button.textContent = "Enviando...";
+      result.classList.add("hidden");
+      showStatus("Enviando arquivo para o DrakScripts...");
+
+      try {
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: data
+        });
+
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(payload.error || payload.message ||
+            "Falha no upload. Verifica a configuração do servidor.");
+        }
+
+        if (!payload.rawUrl || !payload.downloadUrl) {
+          throw new Error("O servidor não retornou os links esperados.");
+        }
+
+        document.getElementById("rawUrl").value = payload.rawUrl;
+        document.getElementById("downloadUrl").value = payload.downloadUrl;
+        result.classList.remove("hidden");
+        showStatus("Upload concluído com sucesso! 🎉");
+      } catch (error) {
+        showStatus(error.message || "Erro ao enviar o arquivo.");
+      } finally {
+        button.disabled = false;
+        button.textContent = "🚀 Enviar arquivo";
+      }
     });
 
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Falha no envio.");
+    document.querySelectorAll("[data-copy]").forEach((copyButton) => {
+      copyButton.addEventListener("click", async () => {
+        const input = document.getElementById(copyButton.dataset.copy);
 
-    currentRawUrl = data.rawUrl;
-    document.getElementById("rawLink").href = data.rawUrl;
-    document.getElementById("downloadLink").href = data.downloadUrl;
-    results.style.display = "block";
-    status.textContent = "🎉 Enviado! ID: " + data.id;
-  } catch (error) {
-    status.textContent = "❌ Não foi possível enviar. Confere se a API e o armazenamento estão configurados. " + error.message;
-  } finally {
-    button.disabled = false;
-  }
-});
-
-document.getElementById("copyLink").addEventListener("click", async () => {
-  if (!currentRawUrl) return;
-  try {
-    await navigator.clipboard.writeText(currentRawUrl);
-    status.textContent = "✅ Link RAW copiado!";
-  } catch {
-    status.textContent = "Copia este link: " + currentRawUrl;
-  }
-});
-</script>
+        try {
+          await navigator.clipboard.writeText(input.value);
+          copyButton.textContent = "Copiado!";
+          setTimeout(() => copyButton.textContent = "Copiar", 1500);
+        } catch {
+          input.select();
+          showStatus("Seleciona o link e copia manualmente.");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
