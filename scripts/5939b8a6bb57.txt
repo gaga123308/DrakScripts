@@ -1,0 +1,20 @@
+-- DrakScripts | Speed Test
+-- Teste de velocidade do personagem
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local function setSpeed(speed)
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+    humanoid.WalkSpeed = speed
+end
+
+setSpeed(32)
+
+player.CharacterAdded:Connect(function()
+    task.wait(1)
+    setSpeed(32)
+end)
+
+print("DrakScripts: Speed ativado! WalkSpeed = 32")
