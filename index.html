@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="7WkA9VnX4T6cCKLmKyJ-nLHmgCaDXLELJ2HOdC8UWog">
 
-    <meta name="description" content="Drak Studio Scripts é uma plataforma para enviar, hospedar, compartilhar e baixar scripts Lua e arquivos TXT.">
+    <meta name="google-site-verification" content="7WkA9VnX4T6cCKLmKyJ-nLHmgCaDXLELJ2HOdC8UWog">
+    <meta name="description" content="Drak Studio Scripts: hospede, compartilhe e baixe scripts Lua e arquivos TXT.">
     <meta name="theme-color" content="#ff7900">
 
-    <title>Drak Studio Scripts | Upload e Compartilhamento de Scripts</title>
+    <title>Drak Studio Scripts | Compartilhamento de Scripts</title>
 
     <style>
         * {
@@ -18,107 +18,81 @@
             padding: 0;
         }
 
-        :root {
-            --orange: #ff7900;
-            --orange-light: #ff9b3d;
-            --background: #0c0c0c;
-            --panel: #181818;
-            --border: #333;
-            --text: #fff;
-            --muted: #aaa;
-        }
-
         body {
             min-height: 100vh;
-            background: var(--background);
-            color: var(--text);
-            font-family: Arial, Helvetica, sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            font-family: Arial, sans-serif;
         }
 
         header {
-            padding: 28px 16px;
+            padding: 28px 14px;
             text-align: center;
-            background: #151515;
-            border-bottom: 2px solid var(--orange);
+            background: #161616;
+            border-bottom: 2px solid #ff7900;
         }
 
-        .logo {
-            color: var(--orange);
-            font-size: clamp(27px, 6vw, 40px);
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-shadow: 0 0 18px #ff790025;
+        h1 {
+            color: #ff7900;
+            font-size: clamp(25px, 6vw, 38px);
+            overflow-wrap: anywhere;
         }
 
         header p {
-            color: var(--muted);
+            color: #aaa;
             margin-top: 9px;
-            font-size: 14px;
         }
 
-        .container {
+        main {
             width: 92%;
             max-width: 680px;
             margin: 35px auto;
         }
 
         .panel {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
             padding: 24px;
-            box-shadow: 0 8px 30px #0005;
+            background: #191919;
+            border: 1px solid #333;
+            border-radius: 14px;
         }
 
         h2 {
-            color: var(--orange);
+            color: #ff7900;
             margin-bottom: 12px;
-            font-size: 23px;
         }
 
         .description {
-            color: #c2c2c2;
-            font-size: 14px;
+            color: #bbb;
             line-height: 1.7;
             margin-bottom: 22px;
         }
 
-        .section-label {
+        label {
             display: block;
             margin-bottom: 10px;
-            font-size: 14px;
             font-weight: bold;
         }
 
         input[type="file"] {
             width: 100%;
-            padding: 14px;
+            padding: 13px;
+            margin-bottom: 16px;
             background: #101010;
             color: #ddd;
-            border: 1px dashed var(--orange);
-            border-radius: 9px;
-            margin-bottom: 16px;
+            border: 1px dashed #ff7900;
+            border-radius: 8px;
         }
 
         button {
             width: 100%;
             padding: 14px;
-            border: none;
-            border-radius: 9px;
-            background: var(--orange);
+            background: #ff7900;
             color: #111;
-            font-size: 15px;
+            border: none;
+            border-radius: 8px;
             font-weight: bold;
+            font-size: 15px;
             cursor: pointer;
-            transition: background .2s, transform .2s;
-        }
-
-        button:hover {
-            background: var(--orange-light);
-        }
-
-        button:active {
-            transform: scale(.99);
         }
 
         button:disabled {
@@ -127,103 +101,66 @@
         }
 
         #status {
-            margin-top: 17px;
-            font-size: 14px;
+            margin-top: 16px;
             line-height: 1.6;
             overflow-wrap: anywhere;
         }
 
-        .results {
+        #results {
             display: none;
             margin-top: 20px;
-            padding: 17px;
+            padding: 16px;
             background: #101010;
-            border: 1px solid #393939;
-            border-radius: 10px;
+            border: 1px solid #333;
+            border-radius: 9px;
         }
 
-        .success-title {
+        .success {
             color: #63e68b;
             font-weight: bold;
-            margin-bottom: 16px;
         }
 
         .link-label {
             display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
             color: #ddd;
-            font-size: 13px;
-            margin: 15px 0 7px;
         }
 
-        .results a {
+        #results a {
             display: block;
-            color: var(--orange-light);
+            color: #ff9b3d;
             overflow-wrap: anywhere;
-            font-size: 13px;
             line-height: 1.6;
+            font-size: 13px;
         }
 
         .copy-button {
             margin-top: 9px;
-            padding: 11px;
-            font-size: 13px;
         }
 
         .file-id {
-            color: #ddd;
-            font-family: monospace;
             overflow-wrap: anywhere;
+            font-family: monospace;
         }
 
         .note {
-            margin-top: 19px;
             color: #888;
             font-size: 12px;
             line-height: 1.7;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 17px;
-        }
-
-        .feature {
-            text-align: center;
-            background: #151515;
-            border: 1px solid #292929;
-            border-radius: 9px;
-            padding: 14px 7px;
-        }
-
-        .feature strong {
-            display: block;
-            color: var(--orange);
-            font-size: 13px;
-            margin-bottom: 6px;
-        }
-
-        .feature span {
-            color: #999;
-            font-size: 11px;
+            margin-top: 20px;
         }
 
         footer {
-            padding: 25px 15px;
+            padding: 24px 12px;
             text-align: center;
             color: #777;
             font-size: 12px;
-            line-height: 1.8;
         }
 
-        @media (max-width: 420px) {
+        @media (max-width: 450px) {
             .panel {
                 padding: 18px;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -231,23 +168,21 @@
 
 <body>
     <header>
-        <div class="logo">DRAK STUDIO SCRIPTS</div>
-        <p>Seu espaço para hospedar e compartilhar códigos.</p>
+        <h1>DRAK STUDIO SCRIPTS</h1>
+        <p>Hospede e compartilhe seus arquivos.</p>
     </header>
 
-    <main class="container">
+    <main>
         <section class="panel">
             <h2>Enviar arquivo</h2>
 
             <p class="description">
-                Envie seus arquivos Lua ou TXT e gere links exclusivos
+                Envie arquivos Lua ou TXT e gere links exclusivos
                 para visualizar o código ou baixar o arquivo.
             </p>
 
             <form id="uploadForm">
-                <label class="section-label" for="fileInput">
-                    Selecione seu arquivo
-                </label>
+                <label for="fileInput">Escolha seu arquivo</label>
 
                 <input
                     type="file"
@@ -256,29 +191,25 @@
                     required
                 >
 
-                <button type="submit" id="uploadButton">
+                <button id="uploadButton" type="submit">
                     Enviar arquivo
                 </button>
             </form>
 
             <p id="status" role="status" aria-live="polite"></p>
 
-            <div class="results" id="results">
-                <p class="success-title">✓ Arquivo enviado com sucesso!</p>
+            <div id="results">
+                <p class="success">✓ Arquivo enviado com sucesso!</p>
 
-                <span class="link-label">Link RAW — visualizar código</span>
-                <a id="rawLink" href="#" target="_blank" rel="noopener">
-                    Abrir código
-                </a>
-                <button class="copy-button" type="button" id="copyRaw">
+                <span class="link-label">RAW — visualizar código</span>
+                <a id="rawLink" href="#" target="_blank" rel="noopener"></a>
+                <button class="copy-button" id="copyRaw" type="button">
                     Copiar link RAW
                 </button>
 
-                <span class="link-label">Link Download — baixar arquivo</span>
-                <a id="downloadLink" href="#">
-                    Baixar arquivo
-                </a>
-                <button class="copy-button" type="button" id="copyDownload">
+                <span class="link-label">Download — baixar arquivo</span>
+                <a id="downloadLink" href="#"></a>
+                <button class="copy-button" id="copyDownload" type="button">
                     Copiar link de download
                 </button>
 
@@ -286,40 +217,23 @@
                 <p class="file-id" id="fileId"></p>
             </div>
 
-            <div class="features">
-                <div class="feature">
-                    <strong>Lua + TXT</strong>
-                    <span>Formatos aceitos</span>
-                </div>
-
-                <div class="feature">
-                    <strong>1 MB</strong>
-                    <span>Limite por arquivo</span>
-                </div>
-
-                <div class="feature">
-                    <strong>RAW + Download</strong>
-                    <span>Links individuais</span>
-                </div>
-            </div>
-
             <p class="note">
-                Envie apenas arquivos .lua ou .txt de até 1 MB.
-                Nunca compartilhe senhas, tokens ou informações pessoais.
-                Envie somente arquivos que você tem direito de compartilhar.
+                Formatos aceitos: .lua e .txt. O tamanho máximo depende
+                dos limites de armazenamento e hospedagem. Arquivos grandes
+                podem demorar mais para enviar. Nunca compartilhe senhas,
+                tokens ou informações pessoais.
             </p>
         </section>
     </main>
 
     <footer>
-        Drak Studio Scripts © 2026<br>
-        Plataforma de compartilhamento de arquivos
+        Drak Studio Scripts © 2026
     </footer>
 
     <script>
         const form = document.getElementById("uploadForm");
         const fileInput = document.getElementById("fileInput");
-        const uploadButton = document.getElementById("uploadButton");
+        const button = document.getElementById("uploadButton");
         const status = document.getElementById("status");
         const results = document.getElementById("results");
 
@@ -334,18 +248,13 @@
             }
 
             if (!/\.(lua|txt)$/i.test(file.name)) {
-                status.textContent = "Erro: envie somente arquivos .lua ou .txt.";
+                status.textContent = "Envie somente arquivos .lua ou .txt.";
                 return;
             }
 
-            if (file.size > 1024 * 1024) {
-                status.textContent = "Erro: o limite é de 1 MB por arquivo.";
-                return;
-            }
-
-            uploadButton.disabled = true;
-            uploadButton.textContent = "Enviando...";
-            status.textContent = "Enviando arquivo, aguarde...";
+            button.disabled = true;
+            button.textContent = "Enviando...";
+            status.textContent = "Enviando arquivo. Aguarde...";
             results.style.display = "none";
 
             try {
@@ -360,13 +269,20 @@
                 const data = await response.json();
 
                 if (!response.ok) {
-                    throw new Error(data.error || "Não foi possível enviar o arquivo.");
+                    throw new Error(
+                        data.error || "Não foi possível enviar o arquivo."
+                    );
                 }
 
-                document.getElementById("rawLink").href = data.rawUrl;
-                document.getElementById("rawLink").textContent = data.rawUrl;
+                const raw = document.getElementById("rawLink");
+                const download = document.getElementById("downloadLink");
 
-                document.getElementById("downloadLink").href = data.downloadUrl;
+                raw.href = data.rawUrl;
+                raw.textContent = data.rawUrl;
+
+                download.href = data.downloadUrl;
+                download.textContent = data.downloadUrl;
+
                 document.getElementById("fileId").textContent = data.id;
 
                 results.style.display = "block";
@@ -375,21 +291,21 @@
             } catch (error) {
                 status.textContent = "Erro: " + error.message;
             } finally {
-                uploadButton.disabled = false;
-                uploadButton.textContent = "Enviar arquivo";
+                button.disabled = false;
+                button.textContent = "Enviar arquivo";
             }
         });
 
-        document.getElementById("copyRaw").addEventListener("click", async function() {
-            await copyLink(
+        document.getElementById("copyRaw").addEventListener("click", function() {
+            copyLink(
                 document.getElementById("rawLink").href,
                 this,
                 "Copiar link RAW"
             );
         });
 
-        document.getElementById("copyDownload").addEventListener("click", async function() {
-            await copyLink(
+        document.getElementById("copyDownload").addEventListener("click", function() {
+            copyLink(
                 document.getElementById("downloadLink").href,
                 this,
                 "Copiar link de download"
@@ -400,7 +316,7 @@
             try {
                 await navigator.clipboard.writeText(url);
                 button.textContent = "Copiado!";
-                setTimeout(function() {
+                setTimeout(() => {
                     button.textContent = originalText;
                 }, 1800);
             } catch {
