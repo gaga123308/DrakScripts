@@ -2,329 +2,292 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ff7900">
-  <title>DrakScripts | Halloween</title>
-  <style>
-    :root {
-      --orange: #ff7900;
-      --dark: #100b14;
-      --panel: #1b1421;
-      --text: #f8f4fc;
-      --muted: #aaa0b5;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    * { box-sizing: border-box; }
+    <meta name="google-site-verification" content="7WkA9VnX4T6cCKLmKyJ-nLHmgCaDXLELJ2HOdC8UWog">
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--text);
-      background:
-        radial-gradient(ellipse at top, #40200f 0, transparent 48%),
-        var(--dark);
-      font-family: Arial, sans-serif;
-    }
+    <meta name="description" content="DrakScripts - Envie, compartilhe e baixe scripts Lua e arquivos de texto.">
+    <meta name="theme-color" content="#ff7900">
 
-    header {
-      padding: 24px 18px;
-      text-align: center;
-      border-bottom: 1px solid #3d2a22;
-    }
+    <title>DrakScripts | Scripts Hub</title>
 
-    .logo {
-      font-size: 30px;
-      font-weight: 900;
-      color: var(--orange);
-      letter-spacing: 1px;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    header p {
-      color: var(--muted);
-      margin-bottom: 0;
-    }
+        body {
+            min-height: 100vh;
+            background: #101010;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
 
-    main {
-      width: min(680px, 92%);
-      margin: 32px auto;
-    }
+        header {
+            padding: 24px 16px;
+            text-align: center;
+            background: #181818;
+            border-bottom: 2px solid #ff7900;
+        }
 
-    .panel {
-      padding: 24px;
-      background: rgba(27, 20, 33, .96);
-      border: 1px solid #493021;
-      border-radius: 18px;
-      box-shadow: 0 12px 40px #0005;
-    }
+        header h1 {
+            color: #ff7900;
+            font-size: 34px;
+            letter-spacing: 2px;
+        }
 
-    h2 { margin-top: 0; }
+        header p {
+            color: #aaa;
+            margin-top: 8px;
+        }
 
-    .description {
-      color: var(--muted);
-      line-height: 1.5;
-    }
+        main {
+            width: 92%;
+            max-width: 650px;
+            margin: 35px auto;
+        }
 
-    .drop-area {
-      display: block;
-      margin-top: 22px;
-      padding: 28px 16px;
-      text-align: center;
-      border: 2px dashed #805027;
-      border-radius: 14px;
-      background: #110d17;
-      cursor: pointer;
-    }
+        .panel {
+            background: #191919;
+            border: 1px solid #333;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 0 25px #ff790015;
+        }
 
-    .drop-area:focus-within {
-      outline: 2px solid var(--orange);
-    }
+        h2 {
+            color: #ff7900;
+            margin-bottom: 12px;
+        }
 
-    .upload-icon {
-      font-size: 38px;
-      display: block;
-      margin-bottom: 12px;
-    }
+        .description {
+            color: #bbb;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
 
-    input[type="file"] {
-      display: block;
-      width: 100%;
-      margin-top: 16px;
-      color: var(--muted);
-    }
+        input[type="file"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px dashed #ff7900;
+            border-radius: 8px;
+            background: #101010;
+            color: #ddd;
+            margin-bottom: 16px;
+        }
 
-    button, .link-button {
-      display: inline-block;
-      padding: 12px 16px;
-      border: 0;
-      border-radius: 10px;
-      color: #160d06;
-      background: var(--orange);
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      text-align: center;
-    }
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #ff7900;
+            color: #111;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    button:disabled {
-      opacity: .5;
-      cursor: wait;
-    }
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
 
-    .upload-button {
-      width: 100%;
-      margin-top: 18px;
-    }
+        #status {
+            margin-top: 18px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
 
-    .status {
-      margin-top: 16px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #100d14;
-      overflow-wrap: anywhere;
-      line-height: 1.5;
-    }
+        .links {
+            display: none;
+            margin-top: 20px;
+            padding: 16px;
+            background: #101010;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
 
-    .hidden { display: none; }
+        .links a {
+            display: block;
+            color: #ff9b3d;
+            margin-top: 8px;
+            overflow-wrap: anywhere;
+        }
 
-    .result {
-      margin-top: 22px;
-      padding-top: 18px;
-      border-top: 1px solid #493021;
-    }
+        .links button {
+            margin-top: 12px;
+        }
 
-    .result label {
-      display: block;
-      margin: 14px 0 6px;
-      color: var(--muted);
-      font-size: 13px;
-    }
+        .note {
+            margin-top: 18px;
+            color: #888;
+            font-size: 12px;
+            line-height: 1.5;
+        }
 
-    .url-row {
-      display: flex;
-      gap: 8px;
-    }
-
-    .url-row input {
-      min-width: 0;
-      flex: 1;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #493021;
-      background: #100d14;
-      color: white;
-    }
-
-    .url-row button {
-      padding: 10px;
-    }
-
-    .discord {
-      display: block;
-      margin-top: 22px;
-      color: var(--orange);
-      text-align: center;
-    }
-
-    footer {
-      padding: 24px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 13px;
-    }
-
-    @media (max-width: 430px) {
-      .panel { padding: 18px; }
-      .url-row { flex-direction: column; }
-      .url-row button { width: 100%; }
-    }
-  </style>
+        footer {
+            padding: 24px;
+            text-align: center;
+            color: #777;
+        }
+    </style>
 </head>
+
 <body>
-  <header>
-    <div class="logo">🎃 DRAKSCRIPTS</div>
-    <p>Teus arquivos, teus links.</p>
-  </header>
+    <header>
+        <h1>DRAKSCRIPTS</h1>
+        <p>Seu espaço para compartilhar scripts.</p>
+    </header>
 
-  <main>
-    <section class="panel">
-      <h2>👻 Hospedar arquivo</h2>
-      <p class="description">
-        Envia arquivos Lua ou TXT e recebe links para visualizar
-        ou baixar o arquivo.
-      </p>
+    <main>
+        <section class="panel">
+            <h2>Enviar arquivo</h2>
 
-      <form id="uploadForm">
-        <label class="drop-area" for="fileInput">
-          <span class="upload-icon">📁</span>
-          <strong>Seleciona teu arquivo</strong>
-          <p class="description">Formatos aceitos: .lua e .txt</p>
-          <input
-            id="fileInput"
-            name="file"
-            type="file"
-            accept=".lua,.txt,text/plain"
-            required
-          >
-        </label>
+            <p class="description">
+                Envie seu arquivo Lua ou TXT e receba links exclusivos
+                para visualizar o conteúdo ou baixar o arquivo.
+            </p>
 
-        <button class="upload-button" id="uploadButton" type="submit">
-          🚀 Enviar arquivo
-        </button>
-      </form>
+            <form id="uploadForm">
+                <input
+                    type="file"
+                    id="fileInput"
+                    accept=".lua,.txt"
+                    required
+                >
 
-      <div id="status" class="status hidden" role="status"></div>
+                <button type="submit" id="uploadButton">
+                    Enviar arquivo
+                </button>
+            </form>
 
-      <section id="result" class="result hidden">
-        <h3>✅ Arquivo hospedado!</h3>
+            <p id="status" role="status"></p>
 
-        <label for="rawUrl">Link RAW</label>
-        <div class="url-row">
-          <input id="rawUrl" readonly>
-          <button type="button" data-copy="rawUrl">Copiar</button>
-        </div>
+            <div class="links" id="result">
+                <strong>Arquivo enviado!</strong>
 
-        <label for="downloadUrl">Link Download</label>
-        <div class="url-row">
-          <input id="downloadUrl" readonly>
-          <button type="button" data-copy="downloadUrl">Copiar</button>
-        </div>
-      </section>
+                <p style="margin-top: 12px;">Link RAW:</p>
+                <a id="rawLink" href="#" target="_blank" rel="noopener">
+                    Abrir código
+                </a>
+                <button type="button" id="copyRaw">
+                    Copiar link RAW
+                </button>
 
-      <a class="discord" href="https://discord.gg/SvNyxB4xj"
-         target="_blank" rel="noopener noreferrer">
-        💬 DrakScripts | Comunidade Discord
-      </a>
-    </section>
-  </main>
+                <p style="margin-top: 18px;">Link de download:</p>
+                <a id="downloadLink" href="#">
+                    Baixar arquivo
+                </a>
+                <button type="button" id="copyDownload">
+                    Copiar link de download
+                </button>
 
-  <footer>
-    © DrakStudios · DrakScripts 🎃
-  </footer>
+                <p style="margin-top: 18px;">ID do arquivo:</p>
+                <p id="fileId"></p>
+            </div>
 
-  <script>
-    const form = document.getElementById("uploadForm");
-    const fileInput = document.getElementById("fileInput");
-    const button = document.getElementById("uploadButton");
-    const statusBox = document.getElementById("status");
-    const result = document.getElementById("result");
+            <p class="note">
+                Formatos aceitos: .lua e .txt. Tamanho máximo: 1 MB.
+                Não envie senhas, tokens ou informações pessoais.
+            </p>
+        </section>
+    </main>
 
-    function showStatus(message) {
-      statusBox.textContent = message;
-      statusBox.classList.remove("hidden");
-    }
+    <footer>
+        DrakScripts © 2026
+    </footer>
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
+    <script>
+        const form = document.getElementById("uploadForm");
+        const fileInput = document.getElementById("fileInput");
+        const button = document.getElementById("uploadButton");
+        const status = document.getElementById("status");
+        const result = document.getElementById("result");
 
-      const file = fileInput.files[0];
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
 
-      if (!file) {
-        showStatus("Seleciona um arquivo primeiro.");
-        return;
-      }
+            const file = fileInput.files[0];
 
-      if (!/\.(lua|txt)$/i.test(file.name)) {
-        showStatus("Só são aceitos arquivos .lua ou .txt.");
-        return;
-      }
+            if (!file) {
+                status.textContent = "Escolha um arquivo primeiro.";
+                return;
+            }
 
-      if (file.size > 1024 * 1024) {
-        showStatus("O arquivo deve ter no máximo 1 MB.");
-        return;
-      }
+            if (!/\.(lua|txt)$/i.test(file.name)) {
+                status.textContent = "Envie somente arquivos .lua ou .txt.";
+                return;
+            }
 
-      const data = new FormData();
-      data.append("file", file);
+            if (file.size > 1024 * 1024) {
+                status.textContent = "O arquivo ultrapassa o limite de 1 MB.";
+                return;
+            }
 
-      button.disabled = true;
-      button.textContent = "Enviando...";
-      result.classList.add("hidden");
-      showStatus("Enviando arquivo para o DrakScripts...");
+            button.disabled = true;
+            button.textContent = "Enviando...";
+            status.textContent = "Enviando arquivo, aguarde...";
+            result.style.display = "none";
 
-      try {
-        const response = await fetch("/api/upload", {
-          method: "POST",
-          body: data
+            try {
+                const data = new FormData();
+                data.append("file", file);
+
+                const response = await fetch("/api/upload", {
+                    method: "POST",
+                    body: data
+                });
+
+                const json = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(json.error || "Falha no envio.");
+                }
+
+                document.getElementById("rawLink").href = json.rawUrl;
+                document.getElementById("rawLink").textContent = json.rawUrl;
+
+                document.getElementById("downloadLink").href =
+                    json.downloadUrl;
+
+                document.getElementById("fileId").textContent = json.id;
+
+                result.style.display = "block";
+                status.textContent = "Arquivo enviado com sucesso!";
+                fileInput.value = "";
+            } catch (error) {
+                status.textContent = "Erro: " + error.message;
+            } finally {
+                button.disabled = false;
+                button.textContent = "Enviar arquivo";
+            }
         });
 
-        const payload = await response.json().catch(() => ({}));
+        document.getElementById("copyRaw").addEventListener("click", async function() {
+            await copyLink(document.getElementById("rawLink").href, this);
+        });
 
-        if (!response.ok) {
-          throw new Error(payload.error || payload.message ||
-            "Falha no upload. Verifica a configuração do servidor.");
+        document.getElementById("copyDownload").addEventListener("click", async function() {
+            await copyLink(document.getElementById("downloadLink").href, this);
+        });
+
+        async function copyLink(url, button) {
+            try {
+                await navigator.clipboard.writeText(url);
+                button.textContent = "Copiado!";
+                setTimeout(() => {
+                    button.textContent = button.id === "copyRaw"
+                        ? "Copiar link RAW"
+                        : "Copiar link de download";
+                }, 1800);
+            } catch {
+                status.textContent = "Não foi possível copiar. Segure o link e copie manualmente.";
+            }
         }
-
-        if (!payload.rawUrl || !payload.downloadUrl) {
-          throw new Error("O servidor não retornou os links esperados.");
-        }
-
-        document.getElementById("rawUrl").value = payload.rawUrl;
-        document.getElementById("downloadUrl").value = payload.downloadUrl;
-        result.classList.remove("hidden");
-        showStatus("Upload concluído com sucesso! 🎉");
-      } catch (error) {
-        showStatus(error.message || "Erro ao enviar o arquivo.");
-      } finally {
-        button.disabled = false;
-        button.textContent = "🚀 Enviar arquivo";
-      }
-    });
-
-    document.querySelectorAll("[data-copy]").forEach((copyButton) => {
-      copyButton.addEventListener("click", async () => {
-        const input = document.getElementById(copyButton.dataset.copy);
-
-        try {
-          await navigator.clipboard.writeText(input.value);
-          copyButton.textContent = "Copiado!";
-          setTimeout(() => copyButton.textContent = "Copiar", 1500);
-        } catch {
-          input.select();
-          showStatus("Seleciona o link e copia manualmente.");
-        }
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
