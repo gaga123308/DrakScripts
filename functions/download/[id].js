@@ -1,4 +1,3 @@
-
 export async function onRequestGet({ params, env }) {
   const id = params.id;
 
@@ -6,20 +5,28 @@ export async function onRequestGet({ params, env }) {
     return new Response("ID inválido.", { status: 400 });
   }
 
-  const object = await env.SCRIPTS_BUCKET.get(`${id}.lua`);
+  const response = await fetch(
+    `https://api.github.com/repos/gaga123308/DrakScripts/contents/scripts/${id}.lua`,
+    {
+      headers: {
+        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+        Accept: "application/vnd.github.raw+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "DrakScripts"
+      }
+    }
+  );
 
-  if (!object) {
-    return new Response("Script não encontrado.", { status: 404 });
+  if (!response.ok) {
+    return new Response("Script não encontrado.", {
+      status: response.status === 404 ? 404 : 502
+    });
   }
 
-  const name = (
-    object.customMetadata?.originalName || "script.lua"
-  ).replace(/[^a-zA-Z0-9._-]/g, "_");
-
-  return new Response(object.body, {
+  return new Response(await response.arrayBuffer(), {
     headers: {
       "Content-Type": "application/octet-stream",
-      "Content-Disposition": `attachment; filename="${name}"`,
+      "Content-Disposition": `attachment; filename="${id}.lua"`,
       "X-Content-Type-Options": "nosniff"
     }
   });
