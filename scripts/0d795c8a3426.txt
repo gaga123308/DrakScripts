@@ -1,0 +1,220 @@
+r34.AddSection(r34, {
+    "Para usar na sua casa"
+})
+
+r34.AddSection(r34, {
+    "RGB na Casa"
+})
+
+rgbSpeed = 3
+rgbHouseEnabled = false
+
+r34.AddSlider(r34, {
+    ["Name"] = "Velocidade do RGB",
+    ["Min"] = 1,
+    ["Max"] = 26,
+    ["Default"] = 3,
+    ["Callback"] = function(value, ...)
+        rgbSpeed = value
+        return
+    end
+})
+
+local function getHsvColor(speed, ...)
+    return Color3.fromHSV(tick() * speed % 10 / 10, 1, 1)
+end
+
+local function fireRemote(remoteName, args, ...)
+    local remoteFolder = replicatedStorage:FindFirstChild("RE")
+
+    if remoteFolder then
+        local remote = remoteFolder:FindFirstChild(remoteName)
+
+        if remote then
+            pcall(function(...)
+                remote:FireServer(unpack(args))
+                return
+            end)
+        end
+    end
+
+    return
+end
+
+r34.AddToggle(r34, {
+    ["Name"] = "RGB na Casa",
+    ["Default"] = false,
+    ["Callback"] = function(state, ...)
+        rgbHouseEnabled = state
+
+        if state then
+            task.spawn(function(...)
+                while rgbHouseEnabled do
+                    fireRemote("1Player1sHous1e", {
+                        "ColorPickHouse",
+                        getHsvColor(rgbSpeed)
+                    })
+                    task.wait(0.1)
+                end
+                return
+            end)
+        end
+
+        return
+    end
+})
+
+r34.AddSection(r34, {
+    "Loops na sua casa"
+})
+
+houseRemoteFolder = replicatedStorage:WaitForChild("RE")
+houseRemote = houseRemoteFolder:WaitForChild("1Player1sHous1e")
+
+garageLoopEnabled = false
+curtainLoopEnabled = false
+babyLoopEnabled = false
+lockDoorsLoopEnabled = false
+
+r34.AddToggle(r34, {
+    ["Name"] = "Abrir e Fechar Garagem (loop)",
+    ["Default"] = false,
+    ["Callback"] = function(state, ...)
+        garageLoopEnabled = state
+
+        task.spawn(function(...)
+            while garageLoopEnabled do
+                houseRemote:FireServer("GarageDoor")
+                task.wait(0.6)
+            end
+            return
+        end)
+
+        return
+    end
+})
+
+r34.AddToggle(r34, {
+    ["Name"] = "Abrir e Fechar Cortinas (loop)",
+    ["Default"] = false,
+    ["Callback"] = function(state, ...)
+        curtainLoopEnabled = state
+
+        task.spawn(function(...)
+            while curtainLoopEnabled do
+                houseRemote:FireServer("Curtains")
+                task.wait(0.6)
+            end
+            return
+        end)
+
+        return
+    end
+})
+
+r34.AddToggle(r34, {
+    ["Name"] = "Opção Baby (loop)",
+    ["Default"] = false,
+    ["Callback"] = function(state, ...)
+        babyLoopEnabled = state
+
+        task.spawn(function(...)
+            while babyLoopEnabled do
+                houseRemote:FireServer("BabyOptionYes")
+                task.wait(0.3)
+            end
+            return
+        end)
+
+        return
+    end
+})
+
+r34.AddToggle(r34, {
+    ["Name"] = "Trancar Portas (loop)",
+    ["Default"] = false,
+    ["Callback"] = function(state, ...)
+        lockDoorsLoopEnabled = state
+
+        task.spawn(function(...)
+            while lockDoorsLoopEnabled do
+                houseRemote:FireServer("LockDoors")
+                task.wait(0.6)
+            end
+            return
+        end)
+
+        return
+    end
+})
+
+pcall(function(...)
+    r34.AddSection(r34, {
+        ["Name"] = "Teleporte para Casas"
+    })
+    return
+end)
+
+houseLocations = {
+    ["Casa 1"] = Vector3.new(260.29, 4.37, 209.32),
+    ["Casa 2"] = Vector3.new(234.49, 4.37, 228),
+    ["Casa 3"] = Vector3.new(262.79, 21.37, 210.84),
+    ["Casa 4"] = Vector3.new(229.6, 21.37, 225.4),
+    ["Casa 5"] = Vector3.new(173.44, 21.37, 228.11),
+    ["Casa 6"] = Vector3.new(-43, 21, -137),
+    ["Casa 7"] = Vector3.new(-40, 36, -137),
+    ["Casa 11"] = Vector3.new(-21, 40, 436),
+    ["Casa 12"] = Vector3.new(155, 37, 433),
+    ["Casa 13"] = Vector3.new(255, 35, 431),
+    ["Casa 14"] = Vector3.new(254, 38, 394),
+    ["Casa 15"] = Vector3.new(148, 39, 387),
+    ["Casa 16"] = Vector3.new(-17, 42, 425),
+    ["Casa 17"] = Vector3.new(-30, 40, 471),
+    [kJ[1]] = kJ[4],
+[kJ[3]] = kJ[6],
+[kJ[5]] = kJ[8],
+[kJ[7]] = kJ[10],
+[kJ[9]] = kJ[12],
+[kJ[11]] = kJ[14],
+[kJ[13]] = kJ[16],
+[kJ[15]] = kJ[18],
+[kJ[17]] = kJ[20],
+[kJ[19]] = kJ[22],
+[kJ[21]] = kJ[24],
+[kJ[23]] = kJ[26],
+[kJ[25]] = kJ[28],
+[kJ[27]] = kJ[30]
+}
+
+houseOptions = {}
+houseTable = houseLocations
+
+for houseKey in pairs(houseTable) do
+    table.insert(houseOptions, houseKey)
+end
+
+table.sort(houseOptions, function(a, b, ...)
+    return (tonumber(a:match("%d+")) or 0) < (tonumber(b:match("%d+")) or 0)
+end)
+
+pcall(function(...)
+    r34.AddDropdown(r34, {
+        ["Name"] = "Selecionar Casa",
+        ["Options"] = houseOptions,
+        ["Callback"] = function(selected, ...)
+            local player = game.Players.LocalPlayer
+
+            if player and player.Character then
+                player.Character.HumanoidRootPart.CFrame = CFrame.new(houseTable[selected])
+            end
+
+            return
+        end
+    })
+    return
+end)
+
+pcall(function(...)
+    r34.AddLabel(r34, "Teleporte para a Casa que Quiser")
+    return
+end)
